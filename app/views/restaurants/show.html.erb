@@ -5,11 +5,20 @@
   <p><%=@restaurant.phone_number%></p>
   <p><%=@restaurant.category%></p>
 
-<ul class="list-group">
-  <% @restaurant.reviews.each do |review| %>
-    <li class="list-group-item"><%= review.content %><%= review.rating %></li>
+  <ul class="list-group">
+    <% @restaurant.reviews.each do |review| %>
+      <li class="list-group-item"><%= review.rating %> <%= review.content %></li>
+    <%end%>
+  </ul>
+  <h2>Review</h2>
+  <%= simple_form_for([@restaurant, @review]) do |f| %>
+    <%= f.label :rating %>
+    <%= f.number_field :rating %>
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+    <%= f.submit "Submit review", class: "btn btn-primary" %>
   <% end %>
-</ul>
 
-<%= link_to 'Leave a review', new_restaurant_review_path(@restaurant) %>
 </div>
+
+<%= link_to 'Return', restaurants_path, class: "btn btn-primary"%>
